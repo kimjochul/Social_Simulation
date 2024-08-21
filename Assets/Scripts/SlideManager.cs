@@ -14,11 +14,16 @@ public class SlideManager : MonoBehaviour
     public void AddSlide(int slideNumber, string imageBase64, string originalScript)
     {
         SlideData slideData = new SlideData
-        {   
+        {
             slideNumber = slideNumber,
             imagePath = imageBase64, // 이미지 데이터를 Base64로 저장
             originalScript = originalScript
         };
+
+        //SlideData slideData = new SlideData
+        //{
+        //    script = originalScript
+        //};
 
         presentationData.slides.Add(slideData);
     }

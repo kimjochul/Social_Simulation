@@ -9,5 +9,6 @@ public class SlideData
     public string originalScript; // 사용자가 입력한 발표 대본 텍스트
     public string modifiedScript; // AI로부터 받은 발표 대본 수정본
     public string finalScript; // 사용자가 최종 수정하여 Confirm한 발표 대본
+    public string script;
 }
    

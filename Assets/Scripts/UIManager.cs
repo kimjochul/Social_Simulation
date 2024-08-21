@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     // 다른 매니저 스크립트를 참조하기 위한 변수들
     private SlideManager slideManager;
-    private BackendManager backendManager;
+    private BackendManager_New backendManager;
 
     private int currentSlideNumber = 1;
 
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     {
         // SlideManager와 BackendManager 컴포넌트를 가져옵니다.
         slideManager = GetComponent<SlideManager>();
-        backendManager = GetComponent<BackendManager>();
+        backendManager = GetComponent<BackendManager_New>();
 
         //previousButton.onClick.AddListener(OnPreviousButtonClick);
         //nextButton.onClick.AddListener(OnNextButtonClick);  
@@ -36,6 +36,21 @@ public class UIManager : MonoBehaviour
     // "Add Slide" 버튼 클릭 시 호출되는 메소드
     public void OnAddSlideButtonClick()
     {
+        //// 현재 표시된 이미지를 Base64 문자열로 변환합니다.
+        //string imageBase64 = ImageToBase64();
+        //// 사용자가 입력한 원본 스크립트를 가져옵니다.
+        //string originalScript = originalScriptField.text;
+
+        //// 슬라이드 매니저를 통해 슬라이드를 추가합니다.
+        //// 현재 슬라이드 번호를 사용하여 저장합니다.
+        //slideManager.AddSlide(currentSlideNumber, imageBase64, originalScript);
+    }
+
+    // "Send Data" 버튼 클릭 시 호출되는 메소드
+    public void OnSendDataButtonClick()
+    {
+        // >>>>>>>>>>>>>> OnAddSlideButtonClick()에 있던 파트(시작)
+
         // 현재 표시된 이미지를 Base64 문자열로 변환합니다.
         string imageBase64 = ImageToBase64();
         // 사용자가 입력한 원본 스크립트를 가져옵니다.
@@ -44,11 +59,11 @@ public class UIManager : MonoBehaviour
         // 슬라이드 매니저를 통해 슬라이드를 추가합니다.
         // 현재 슬라이드 번호를 사용하여 저장합니다.
         slideManager.AddSlide(currentSlideNumber, imageBase64, originalScript);
-    }
 
-    // "Send Data" 버튼 클릭 시 호출되는 메소드
-    public void OnSendDataButtonClick()
-    {
+        // OnAddSlideButtonClick()에 있던 파트(끝) <<<<<<<<<<<<<<<<
+
+
+
         Debug.Log("OnSendDataButton 클릭되었음.");
         // 슬라이드 번호를 설정합니다. 여기서는 1번 슬라이드를 선택합니다.
         int slideNumber = 1;
@@ -71,6 +86,7 @@ public class UIManager : MonoBehaviour
     // 서버로부터 수정된 스크립트를 받았을 때 호출되는 콜백 메소드
     private void OnModifiedScriptReceived(string modifiedScript)
     {
+
         // 서버로부터 받은 수정된 스크립트를 수정된 스크립트 필드에 표시합니다.
         modifiedScriptField.text = modifiedScript;
     }
@@ -140,4 +156,25 @@ public class UIManager : MonoBehaviour
         currentSlideNumber++;
         LoadSlide(currentSlideNumber);
     }
+    public void OnSendFinalScriptButtonClick(int slideNumber)
+    {
+        SlideData slideData = slideManager.GetSlide(slideNumber);
+
+        if (slideData != null)
+        {
+            // finalScript를 백엔드로 전송
+            backendManager.SendFinalScript(slideData.slideNumber, slideData.finalScript, OnFinalScriptSent);
+        }
+        else
+        {
+            Debug.LogError("Slide not found!");
+        }
+    }
+
+    private void OnFinalScriptSent(string response)
+    {
+        // 서버로부터 응답을 받은 후 처리
+        Debug.Log("Final Script sent successfully. Server Response: " + response);
+    }
+
 }
