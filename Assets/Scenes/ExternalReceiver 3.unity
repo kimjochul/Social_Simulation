@@ -243,7 +243,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 7
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1545483441}
@@ -683,8 +683,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1274, y: 516.6}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 1736, y: 413}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308545657
 MonoBehaviour:
@@ -745,6 +745,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1257904278}
         m_TargetAssemblyTypeName: Mic, Assembly-CSharp
         m_MethodName: SavSnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1257904278}
+        m_TargetAssemblyTypeName: Mic, Assembly-CSharp
+        m_MethodName: SendAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1257904278}
+        m_TargetAssemblyTypeName: Mic, Assembly-CSharp
+        m_MethodName: SendText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -944,8 +968,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1796,8 +1820,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2198,7 +2222,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50
+  field of view: 68.29615
   orthographic: 0
   orthographic size: 5
   m_Depth: 2
@@ -2225,7 +2249,7 @@ Transform:
   m_GameObject: {fileID: 1078260462}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.85, y: 0.76, z: 4.126}
+  m_LocalPosition: {x: -1.852, y: 1.0345, z: 14.008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5000,8 +5024,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1274, y: 594}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 1736, y: 594}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743973449
 MonoBehaviour:
@@ -6158,12 +6182,12 @@ GameObject:
   - component: {fileID: 2011394844}
   - component: {fileID: 2011394843}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2011394842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6516,6 +6540,7 @@ MonoBehaviour:
   vcamb: {fileID: 2086826588}
   start: {fileID: 1743973447}
   end: {fileID: 308545655}
+  board: {fileID: 2011394841}
   presenter: {fileID: 360831389}
 --- !u!4 &2130439732
 Transform:

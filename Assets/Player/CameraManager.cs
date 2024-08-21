@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
 
     public GameObject start;
     public GameObject end;
+    public GameObject board;
 
     public GameObject presenter;
 
@@ -36,6 +37,7 @@ public class CameraManager : MonoBehaviour
         {
             start.SetActive(true);
             end.SetActive(true);
+            board.SetActive(true);
             timerOn = false;
         }
     }
