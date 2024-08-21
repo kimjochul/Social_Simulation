@@ -79,4 +79,37 @@ public class BackendManager_New : MonoBehaviour
             Debug.LogError("서버로 발표 대본 전송 실패: " + www.error);
         }
     }
+
+    public void SendFinalScript(int slideNumber, string finalScript, System.Action<string> onResponseReceived)
+    {
+        Debug.Log("SendFinalScript 호출됨");
+        StartCoroutine(PostFinalScript(slideNumber, finalScript, onResponseReceived));
+    }
+
+    IEnumerator PostFinalScript(int slideNumber, string finalScript, System.Action<string> onResponseReceived)
+    {
+        Debug.Log("PostFinalScript 코루틴 시작됨");
+
+        TempInfo tempInfo = new TempInfo { script = finalScript };
+        string jsonData = JsonUtility.ToJson(tempInfo, true);
+
+        UnityWebRequest www = new UnityWebRequest(backendUrl, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            string responseText = www.downloadHandler.text;
+            onResponseReceived?.Invoke(responseText);
+        }
+        else
+        {
+            Debug.LogError("서버로 최종 대본 전송 실패: " + www.error);
+        }
+    }
+
 }

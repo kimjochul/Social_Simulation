@@ -156,6 +156,7 @@ public class UIManager : MonoBehaviour
         currentSlideNumber++;
         LoadSlide(currentSlideNumber);
     }
+
     public void OnSendFinalScriptButtonClick(int slideNumber)
     {
         SlideData slideData = slideManager.GetSlide(slideNumber);
