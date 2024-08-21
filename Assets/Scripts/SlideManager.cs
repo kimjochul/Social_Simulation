@@ -1,11 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // SlideManager는 프레젠테이션 슬라이드를 관리하는 클래스입니다.
 // 슬라이드를 추가, 업데이트, 조회하는 기능을 제공합니다.
 public class SlideManager : MonoBehaviour
 {
+    // 싱글톤 인스턴스
+    public static SlideManager Instance { get; private set; }
+
     // PresentationData 객체는 프레젠테이션의 모든 슬라이드 데이터를 저장합니다.
     public PresentationData presentationData = new PresentationData();
+    private void Awake()
+    {
+        // 인스턴스가 이미 존재하면 자신을 파괴하여 중복되지 않도록 합니다.
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            // 이 객체가 씬 전환 시 파괴되지 않도록 설정
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     // AddSlide 메서드는 새로운 슬라이드를 추가합니다.
     // slideNumber: 슬라이드 번호

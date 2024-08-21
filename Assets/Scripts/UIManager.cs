@@ -3,27 +3,27 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // UI ï¿½ï¿½Òµï¿½ï¿½ï¿½ Unity ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ publicï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
-    public Image displayImage; // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå¿¡ Ç¥ï¿½Ãµï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ UI ï¿½Ì¹ï¿½ï¿½ï¿½
-    public InputField originalScriptField; // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Êµï¿½
-    public InputField modifiedScriptField; // ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô·ï¿½ ï¿½Êµï¿½
+    // UI ¿ä¼ÒµéÀ» Unity ¿¡µðÅÍ¿¡¼­ ÇÒ´çÇÒ ¼ö ÀÖµµ·Ï publicÀ¸·Î ¼±¾ðÇÕ´Ï´Ù.
+    public Image displayImage; // ½½¶óÀÌµå¿¡ Ç¥½ÃµÉ ÀÌ¹ÌÁö¸¦ ´ã´Â UI ÀÌ¹ÌÁö
+    public InputField originalScriptField; // »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¿øº» ½ºÅ©¸³Æ®¸¦ ´ã´Â ÀÔ·Â ÇÊµå
+    public InputField modifiedScriptField; // ¼­¹ö·ÎºÎÅÍ ¹ÝÈ¯µÈ ¼öÁ¤µÈ ½ºÅ©¸³Æ®¸¦ Ç¥½ÃÇÏ´Â ÀÔ·Â ÇÊµå
 
     public Button previousButton;
     public Button nextButton;
 
-    public Text slideNumberText; // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ Text UI
+    public Text slideNumberText; // ½½¶óÀÌµå ¹øÈ£¸¦ Ç¥½ÃÇÒ Text UI
 
 
-    // ï¿½Ù¸ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ´Ù¸¥ ¸Å´ÏÀú ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ±â À§ÇÑ º¯¼öµé
     private SlideManager slideManager;
     private BackendManager_New backendManager;
 
     private int currentSlideNumber = 1;
 
-    // ï¿½Ê±ï¿½È­ ï¿½Þ¼Òµï¿½
+    // ÃÊ±âÈ­ ¸Þ¼Òµå
     private void Start()
     {
-        // SlideManagerï¿½ï¿½ BackendManager ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
+        // SlideManager¿Í BackendManager ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿É´Ï´Ù.
         slideManager = GetComponent<SlideManager>();
         backendManager = GetComponent<BackendManager_New>();
 
@@ -33,47 +33,47 @@ public class UIManager : MonoBehaviour
         LoadSlide(currentSlideNumber);
     }
 
-    // "Add Slide" ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼Òµï¿½
+    // "Add Slide" ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÇ´Â ¸Þ¼Òµå
     public void OnAddSlideButtonClick()
     {
-        //// ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Base64 ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
+        //// ÇöÀç Ç¥½ÃµÈ ÀÌ¹ÌÁö¸¦ Base64 ¹®ÀÚ¿­·Î º¯È¯ÇÕ´Ï´Ù.
         //string imageBase64 = ImageToBase64();
-        //// ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
+        //// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¿øº» ½ºÅ©¸³Æ®¸¦ °¡Á®¿É´Ï´Ù.
         //string originalScript = originalScriptField.text;
 
-        //// ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå¸¦ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
-        //// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+        //// ½½¶óÀÌµå ¸Å´ÏÀú¸¦ ÅëÇØ ½½¶óÀÌµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+        //// ÇöÀç ½½¶óÀÌµå ¹øÈ£¸¦ »ç¿ëÇÏ¿© ÀúÀåÇÕ´Ï´Ù.
         //slideManager.AddSlide(currentSlideNumber, imageBase64, originalScript);
     }
 
-    // "Send Data" ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Þ¼Òµï¿½
+    // "Send Data" ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÇ´Â ¸Þ¼Òµå
     public void OnSendDataButtonClick()
     {
-        // >>>>>>>>>>>>>> OnAddSlideButtonClick()ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ®(ï¿½ï¿½ï¿½ï¿½)
+        // >>>>>>>>>>>>>> OnAddSlideButtonClick()¿¡ ÀÖ´ø ÆÄÆ®(½ÃÀÛ)
 
-        // ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Base64 ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
+        // ÇöÀç Ç¥½ÃµÈ ÀÌ¹ÌÁö¸¦ Base64 ¹®ÀÚ¿­·Î º¯È¯ÇÕ´Ï´Ù.
         string imageBase64 = ImageToBase64();
-        // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
+        // »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¿øº» ½ºÅ©¸³Æ®¸¦ °¡Á®¿É´Ï´Ù.
         string originalScript = originalScriptField.text;
 
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå¸¦ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+        // ½½¶óÀÌµå ¸Å´ÏÀú¸¦ ÅëÇØ ½½¶óÀÌµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+        // ÇöÀç ½½¶óÀÌµå ¹øÈ£¸¦ »ç¿ëÇÏ¿© ÀúÀåÇÕ´Ï´Ù.
         slideManager.AddSlide(currentSlideNumber, imageBase64, originalScript);
 
-        // OnAddSlideButtonClick()ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ®(ï¿½ï¿½) <<<<<<<<<<<<<<<<
+        // OnAddSlideButtonClick()¿¡ ÀÖ´ø ÆÄÆ®(³¡) <<<<<<<<<<<<<<<<
 
 
 
-        Debug.Log("OnSendDataButton Å¬ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½.");
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+        Debug.Log("OnSendDataButton Å¬¸¯µÇ¾úÀ½.");
+        // ½½¶óÀÌµå ¹øÈ£¸¦ ¼³Á¤ÇÕ´Ï´Ù. ¿©±â¼­´Â 1¹ø ½½¶óÀÌµå¸¦ ¼±ÅÃÇÕ´Ï´Ù.
         int slideNumber = 1;
         SlideData slideData = slideManager.GetSlide(slideNumber);
 
         if (slideData != null)
         {
-            Debug.Log("slideDataï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½");
+            Debug.Log("slideData°¡ nullÀÌ ¾Æ´Ô");
 
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+            // ¼­¹ö·Î µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ°í, ÀÀ´äÀ» Ã³¸®ÇÒ ÄÝ¹é ¸Þ¼Òµå¸¦ Àü´ÞÇÕ´Ï´Ù.
             backendManager.SendPresentationData(slideData.slideNumber, slideData.originalScript, OnModifiedScriptReceived);
         }
         else
@@ -83,15 +83,15 @@ public class UIManager : MonoBehaviour
     }
 
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Þ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ý¹ï¿½ ï¿½Þ¼Òµï¿½
+    // ¼­¹ö·ÎºÎÅÍ ¼öÁ¤µÈ ½ºÅ©¸³Æ®¸¦ ¹Þ¾ÒÀ» ¶§ È£ÃâµÇ´Â ÄÝ¹é ¸Þ¼Òµå
     private void OnModifiedScriptReceived(string modifiedScript)
     {
 
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Êµå¿¡ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+        // ¼­¹ö·ÎºÎÅÍ ¹ÞÀº ¼öÁ¤µÈ ½ºÅ©¸³Æ®¸¦ ¼öÁ¤µÈ ½ºÅ©¸³Æ® ÇÊµå¿¡ Ç¥½ÃÇÕ´Ï´Ù.
         modifiedScriptField.text = modifiedScript;
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Base64 ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
+    // ÇöÀç Ç¥½ÃµÈ ÀÌ¹ÌÁö¸¦ Base64 ¹®ÀÚ¿­·Î º¯È¯ÇÏ´Â ¸Þ¼Òµå
     private string ImageToBase64()
     {
         if (displayImage.sprite == null)
@@ -100,11 +100,11 @@ public class UIManager : MonoBehaviour
             return null;
         }
 
-        // displayImageï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½Ø½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
+        // displayImage¿¡ ÇÒ´çµÈ SpriteÀÇ ÅØ½ºÃ³¸¦ °¡Á®¿É´Ï´Ù.
         Texture2D texture = displayImage.sprite.texture;
-        // ï¿½Ø½ï¿½Ã³ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ PNG ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½Õ´Ï´ï¿½.
+        // ÅØ½ºÃ³ µ¥ÀÌÅÍ¸¦ PNG Æ÷¸ËÀÇ ¹ÙÀÌÆ® ¹è¿­·Î ÀÎÄÚµùÇÕ´Ï´Ù.
         byte[] imageBytes = texture.EncodeToPNG();
-        // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­ï¿½ï¿½ Base64 ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
+        // ¹ÙÀÌÆ® ¹è¿­À» Base64 ¹®ÀÚ¿­·Î º¯È¯ÇÏ¿© ¹ÝÈ¯ÇÕ´Ï´Ù.
         return System.Convert.ToBase64String(imageBytes);
     }
 
@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour
 
         if (slideData != null)
         {
-            // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Îµï¿½
+            // ÀÌ¹ÌÁö ·Îµå
             if (!string.IsNullOrEmpty(slideData.imagePath))
             {
                 byte[] imageData = System.Convert.FromBase64String(slideData.imagePath);
@@ -124,19 +124,19 @@ public class UIManager : MonoBehaviour
                 displayImage.sprite = newSprite;
             }
 
-            // ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½Îµï¿½
+            // ½ºÅ©¸³Æ® ·Îµå
             originalScriptField.text = slideData.originalScript;
             modifiedScriptField.text = slideData.modifiedScript;
         }
         else
         {
-            // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Êµå¸¦ ï¿½ï¿½ï¿½Ï´ï¿½.
+            // ½½¶óÀÌµå°¡ ¾øÀ» °æ¿ì ÇÊµå¸¦ ºñ¿ó´Ï´Ù.
             displayImage.sprite = null;
             originalScriptField.text = "";
             modifiedScriptField.text = "";
         }
 
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+        // ½½¶óÀÌµå ¹øÈ£ UI ¾÷µ¥ÀÌÆ®
         slideNumberText.text = "Slide: " + slideNumber;
     }
 
@@ -156,25 +156,25 @@ public class UIManager : MonoBehaviour
         currentSlideNumber++;
         LoadSlide(currentSlideNumber);
     }
-    /*
+
     public void OnSendFinalScriptButtonClick(int slideNumber)
     {
         SlideData slideData = slideManager.GetSlide(slideNumber);
 
         if (slideData != null)
         {
-            // finalScriptï¿½ï¿½ ï¿½é¿£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-            //backendManager.SendFinalScript(slideData.slideNumber, slideData.finalScript, OnFinalScriptSent);
+            // finalScript¸¦ ¹é¿£µå·Î Àü¼Û
+            backendManager.SendFinalScript(slideData.slideNumber, slideData.finalScript, OnFinalScriptSent);
         }
         else
         {
             Debug.LogError("Slide not found!");
         }
     }
-*/
+
     private void OnFinalScriptSent(string response)
     {
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
+        // ¼­¹ö·ÎºÎÅÍ ÀÀ´äÀ» ¹ÞÀº ÈÄ Ã³¸®
         Debug.Log("Final Script sent successfully. Server Response: " + response);
     }
 
