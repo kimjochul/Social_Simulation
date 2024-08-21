@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     // player
     public float MoveSpeed = 2.0f;
     public float SprintSpeed = 5f;
+    public bool isSit;
 
     
     private float _speed;
@@ -60,14 +61,27 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (Input.GetKeyDown(KeyCode.F))
+            isSit = true;
+        
+        if (isSit)
+            sit();
+        else
+            Move();
+        
         Gravity();
         GroundCheck();
-        
     }
     private void LateUpdate()
     {
         CameraRotation();
+    }
+
+    void sit()
+    {
+        Debug.Log("눌렀다.");
+        transform.position = new Vector3(0.7f, -0.527f, 3.75f);
+        _animator.SetBool("isSit", true);
     }
     
     private void CameraRotation()
@@ -97,7 +111,6 @@ public class Player : MonoBehaviour
             if (_playerInputScript.move == Vector2.zero)
             {
                 targetSpeed = 0.0f;
-                _animator.SetBool("isWalk", false);
             }
 
             float currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
