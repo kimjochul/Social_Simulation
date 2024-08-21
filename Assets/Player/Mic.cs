@@ -16,23 +16,12 @@ public class Mic : MonoBehaviour
 
     }
 
-    public void PlaySnd()
-    {
-        _aud.Play();
-    }
-
     public void SavSnd()
     {
         SavWav.Save("C:/Users/Admin/Music/Record", _aud.clip);
     }
 
-    public void EndRcd1()
-    {
-        Microphone.End(Microphone.devices[0].ToString());
-        _aud.clip = _record;
-    }
-
-    public void EndRcd2()
+    public void EndRcd()
     {
         int lastTime = Microphone.GetPosition(null);
 

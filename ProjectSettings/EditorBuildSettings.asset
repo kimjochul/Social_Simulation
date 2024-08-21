@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ExternalReceiver 1.unity
-    guid: 28e5fc1033946374ebfac639d8256297
+    path: Assets/Scenes/Main.unity
+    guid: a916544fc9be09d4e8df3e43448939cb
   - enabled: 1
-    path: Assets/Scenes/ExternalReceiver 2.unity
-    guid: 2faea720075998d4395017d64de2e179
+    path: Assets/Scenes/ExternalReceiver 3.unity
+    guid: dbcfa1e0dd5b56148914a3dc6d354610
   m_configObjects: {}

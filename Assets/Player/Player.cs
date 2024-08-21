@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Player : MonoBehaviour
     private PlayerInputScript _playerInputScript;
     private PlayerInput _playerInput;
     private Animator _animator;
+    
+
+    
     
     // cinemachine
     public GameObject CinemachineCameraTarget;
@@ -80,8 +84,11 @@ public class Player : MonoBehaviour
     void sit()
     {
         Debug.Log("눌렀다.");
-        transform.position = new Vector3(0.7f, -0.527f, 3.75f);
+        transform.position = new Vector3(-1.852f, -0.4f, 5.4f);
+        transform.rotation = Quaternion.Euler(0, 180f, 0);
         _animator.SetBool("isSit", true);
+
+        
     }
     
     private void CameraRotation()
