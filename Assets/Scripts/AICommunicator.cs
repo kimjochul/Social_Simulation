@@ -1,26 +1,25 @@
 using UnityEngine;
-using UnityEngine.Networking;
+using TMPro;
 using System.Collections;
-using UnityEngine.UI;
+using UnityEngine.Networking;  // TextMeshPro 사용 시
 
-public class s : MonoBehaviour
+public class AICommunicator : MonoBehaviour
 {
-    public InputField scriptInputField;  // 사용자가 입력한 대본을 받을 InputField
-    private string aiUrl = "http://192.168.1.77:8080/ppt/script"; // AI 서버의 엔드포인트 URL
+    public TMP_InputField scriptInputField;  // 사용자가 입력하는 대본 필드
+    public TMP_InputField modifiedScriptField;  // AI 수정본을 표시하고 사용자가 수정할 수 있는 필드
 
-    // 텍스트를 AI 서버에 전송하는 메소드
-    public void SendTextToAI(string text)
+    private string aiUrl = "http://localhost:5000/modify-text"; // Flask 서버의 로컬 URL
+
+    public void SendTextToAI()
     {
         string userInputText = scriptInputField.text;  // InputField에서 사용자가 입력한 텍스트를 가져옴
-        StartCoroutine(PostRequestJson(text));
+        StartCoroutine(PostRequest(userInputText));
     }
 
-    IEnumerator PostRequestJson(string text)
+    IEnumerator PostRequest(string text)
     {
-        // JSON 데이터로 변환
         string jsonData = JsonUtility.ToJson(new { inputText = text });
 
-        // JSON 데이터로 POST 요청을 만듭니다.
         UnityWebRequest www = new UnityWebRequest(aiUrl, "POST");
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
         www.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -31,7 +30,8 @@ public class s : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("AI의 응답: " + www.downloadHandler.text);
+            string modifiedText = www.downloadHandler.text; // 서버로부터 받은 수정본
+            modifiedScriptField.text = modifiedText; // 수정본을 InputField에 표시
         }
         else
         {
@@ -39,4 +39,33 @@ public class s : MonoBehaviour
         }
     }
 
+    // 최종본을 백엔드로 전송하는 메서드
+    public void SendFinalTextToBackend()
+    {
+        string finalText = modifiedScriptField.text; // 사용자가 수정한 최종본
+        // 이 최종본을 백엔드로 전송하는 로직을 구현
+        StartCoroutine(PostFinalText(finalText));
+    }
+
+    IEnumerator PostFinalText(string finalText)
+    {
+        string jsonData = JsonUtility.ToJson(new { finalText = finalText });
+
+        UnityWebRequest www = new UnityWebRequest(aiUrl + "/finalize", "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("최종본이 백엔드로 전송되었습니다.");
+        }
+        else
+        {
+            Debug.LogError("서버로 최종본 전송 실패: " + www.error);
+        }
+    }
 }
