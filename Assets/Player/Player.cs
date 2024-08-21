@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     private PlayerInputScript _playerInputScript;
     private PlayerInput _playerInput;
+    private Animator _animator;
     
     // cinemachine
     public GameObject CinemachineCameraTarget;
-    private GameObject _mainCamera;
+    public GameObject _mainCamera;
     
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
 
     // player
     public float MoveSpeed = 2.0f;
-    public float SprintSpeed = 5.335f;
+    public float SprintSpeed = 5f;
 
     
     private float _speed;
@@ -30,11 +31,18 @@ public class Player : MonoBehaviour
     private float _rotationVelocity;
     private float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
+
+    // Gravity
+    public bool isGrounded;
+    public LayerMask GroundLayers;
+    public float gravityValue = -9.81f;
+    public float groundedOffset;
+    public float groundedRadius;
     
     void Start()
     {
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-
+        _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerInputScript = GetComponent<PlayerInputScript>();
         
@@ -53,6 +61,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        Gravity();
+        GroundCheck();
         
     }
     private void LateUpdate()
@@ -64,8 +74,8 @@ public class Player : MonoBehaviour
     {
         if (_playerInputScript.look.sqrMagnitude >= 0.01f)
         {
-            _cinemachineTargetYaw += _playerInputScript.look.x;
-            _cinemachineTargetPitch += _playerInputScript.look.y;
+            _cinemachineTargetYaw += _playerInputScript.look.x * 2f;
+            _cinemachineTargetPitch += _playerInputScript.look.y * 2f;
         }
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -84,7 +94,11 @@ public class Player : MonoBehaviour
         {
             float targetSpeed = _playerInputScript.sprint ? SprintSpeed : MoveSpeed;
 
-            if (_playerInputScript.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_playerInputScript.move == Vector2.zero)
+            {
+                targetSpeed = 0.0f;
+                _animator.SetBool("isWalk", false);
+            }
 
             float currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
@@ -115,7 +129,6 @@ public class Player : MonoBehaviour
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     0.12f);
 
-                // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
@@ -124,5 +137,26 @@ public class Player : MonoBehaviour
 
             _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            
+            _animator.SetFloat("Speed", _animationBlend);
         }
+    
+    void Gravity()
+    {
+        _verticalVelocity += gravityValue * Time.deltaTime;
+
+        if (isGrounded)
+        {
+            if (_verticalVelocity < 0.0f)
+                _verticalVelocity = -2f;
+        }
+
+        //_playerInputScript.jump = false;
+    }
+
+    void GroundCheck()
+    {
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z);
+        isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+    }
 }
